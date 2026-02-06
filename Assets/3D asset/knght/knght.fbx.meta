@@ -24,7 +24,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -82,7 +82,92 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: knght(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Object_0
+      parentName: knght(Clone)
+      position: {x: -0, y: -0.0077697304, z: 0.027181916}
+      rotation: {x: 0.016747728, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 100.61064, y: 100.61065, z: 100.61065}
+    - name: Object_0.001
+      parentName: knght(Clone)
+      position: {x: -0, y: -0.003731519, z: 0.027181916}
+      rotation: {x: 0.01674773, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 100, y: 99.99999, z: 99.99999}
+    - name: Object_0.002
+      parentName: knght(Clone)
+      position: {x: -0, y: -0.003731519, z: 0.027181916}
+      rotation: {x: 0.01674773, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 100, y: 99.99999, z: 99.99999}
+    - name: Object_0.004
+      parentName: knght(Clone)
+      position: {x: -0, y: -0.00625315, z: 0.027181916}
+      rotation: {x: 0.01674773, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 100, y: 99.99999, z: 99.99999}
+    - name: Object_0.005
+      parentName: knght(Clone)
+      position: {x: -0, y: -0.00625315, z: 0.027181916}
+      rotation: {x: 0.01674773, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 100, y: 99.99999, z: 99.99999}
+    - name: Object_0.006
+      parentName: knght(Clone)
+      position: {x: -0, y: -0.00625315, z: 0.027181916}
+      rotation: {x: 0.01674773, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 100, y: 99.99999, z: 99.99999}
+    - name: Object_0.007
+      parentName: knght(Clone)
+      position: {x: -0, y: -0.00625315, z: 0.027181916}
+      rotation: {x: 0.01674773, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 100, y: 99.99999, z: 99.99999}
+    - name: Object_0.008
+      parentName: knght(Clone)
+      position: {x: -0, y: -0.00625315, z: 0.027181916}
+      rotation: {x: 0.01674773, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 100, y: 99.99999, z: 99.99999}
+    - name: Object_0.009
+      parentName: knght(Clone)
+      position: {x: -0, y: -0.00625315, z: 0.027181916}
+      rotation: {x: 0.01674773, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 100, y: 99.99999, z: 99.99999}
+    - name: Object_0.010
+      parentName: knght(Clone)
+      position: {x: -0, y: -0.01411548, z: 0.027181916}
+      rotation: {x: 0.016747728, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 101.598656, y: 101.59866, z: 101.59866}
+    - name: Object_0.011
+      parentName: knght(Clone)
+      position: {x: -0, y: -0.00625315, z: 0.027181916}
+      rotation: {x: 0.01674773, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 100, y: 99.99999, z: 99.99999}
+    - name: Object_1
+      parentName: knght(Clone)
+      position: {x: -0, y: -0.003731519, z: 0.027181916}
+      rotation: {x: 0.000000021855694, y: 1.1474053e-16, z: -1.1096002e-16, w: 1}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Object_2
+      parentName: knght(Clone)
+      position: {x: -0, y: 0.0011245566, z: 0.022709655}
+      rotation: {x: 0.01674773, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 100, y: 99.99999, z: 99.99999}
+    - name: Object_3
+      parentName: knght(Clone)
+      position: {x: -0, y: -0.003731519, z: 0.027181916}
+      rotation: {x: 0.01674773, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 100, y: 99.99999, z: 99.99999}
+    - name: Object_4
+      parentName: knght(Clone)
+      position: {x: 0.7034103, y: 0.01131496, z: -0.033351637}
+      rotation: {x: 0.01674773, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 100, y: 99.99999, z: 99.99999}
+    - name: Object_4.002
+      parentName: knght(Clone)
+      position: {x: 0.007723193, y: 0.01131496, z: 0.01670094}
+      rotation: {x: 0.01674773, y: 1.1286611e-16, z: -1.1286611e-16, w: 0.99985975}
+      scale: {x: 100, y: 99.99999, z: 99.99999}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -93,13 +178,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
