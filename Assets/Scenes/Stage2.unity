@@ -8344,14 +8344,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7ee0660308f054f8df484b0452ca0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sliderMode: 1
   slider: {fileID: 161734681}
-  maxTilt: 60
+  maxTilt: 45
+  instantFillAngle: 30
   sliderSmoothTime: 0.4
-  fallDelay: 3
-  currentAngle: 0
-  progressPercent: 0
   maxVolume: 1
   loadNextSceneOnComplete: 0
+  fallDelay: 3
+  signedAngleFromDefault: 0
+  targetValue: 0
 --- !u!65 &161734679
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16893,14 +16895,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7ee0660308f054f8df484b0452ca0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sliderMode: 1
   slider: {fileID: 321176133}
   maxTilt: 60
+  instantFillAngle: 30
   sliderSmoothTime: 0.4
-  fallDelay: 3
-  currentAngle: 0
-  progressPercent: 0
   maxVolume: 1
   loadNextSceneOnComplete: 0
+  fallDelay: 3
+  signedAngleFromDefault: 0
+  targetValue: 0
 --- !u!65 &321176131
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20848,14 +20852,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7ee0660308f054f8df484b0452ca0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sliderMode: 1
   slider: {fileID: 377736429}
   maxTilt: 60
+  instantFillAngle: 30
   sliderSmoothTime: 0.4
-  fallDelay: 3
-  currentAngle: 0
-  progressPercent: 0
   maxVolume: 1
   loadNextSceneOnComplete: 0
+  fallDelay: 3
+  signedAngleFromDefault: 0
+  targetValue: 0
 --- !u!65 &377736427
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29374,6 +29380,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4547823572715880551, guid: 839bef4932963be46ba25298243825f5, type: 3}
       insertIndex: 3
       addedObject: {fileID: 745090437}
+    - targetCorrespondingSourceObject: {fileID: 4547823572715880551, guid: 839bef4932963be46ba25298243825f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 745090443}
   m_SourcePrefab: {fileID: 100100000, guid: 839bef4932963be46ba25298243825f5, type: 3}
 --- !u!1 &525772636
 GameObject:
@@ -32627,7 +32636,7 @@ GameObject:
   - component: {fileID: 581350649}
   m_Layer: 5
   m_Name: Restart
-  m_TagString: Untagged
+  m_TagString: UI-Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41517,6 +41526,18 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthSlider: {fileID: 321176133}
+--- !u!114 &745090443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745090431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d6e94406ad8824ea451591c3247b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &745362467
 GameObject:
   m_ObjectHideFlags: 0
@@ -46873,7 +46894,7 @@ GameObject:
   - component: {fileID: 834812795}
   m_Layer: 5
   m_Name: MainMenu
-  m_TagString: Untagged
+  m_TagString: UI-Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104823,19 +104844,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1814722212}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1975185636}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: LoadMainMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1814722212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124749,6 +124758,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 948283319}
     m_Modifications:
+    - target: {fileID: 3150334752188666650, guid: 67bb76c0794cf074f81d76639c3cfb4e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3771428087884978909, guid: 67bb76c0794cf074f81d76639c3cfb4e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.99000025

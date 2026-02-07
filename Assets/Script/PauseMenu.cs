@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseUI;
-    // Struktur untuk menyimpan data transformasi awal
+
     private struct InitialTransform
     {
         public Transform transform;
@@ -18,25 +18,29 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        // Simpan posisi awal semua child dari pauseUI saat pertama kali dijalankan
+        pauseUI.SetActive(false);
+
         if (pauseUI != null)
         {
             foreach (Transform child in pauseUI.transform)
             {
-                InitialTransform data = new InitialTransform
+                childData.Add(new InitialTransform
                 {
                     transform = child,
                     position = child.localPosition,
                     rotation = child.localRotation,
                     scale = child.localScale
-                };
-                childData.Add(data);
+                });
             }
         }
     }
 
     void Update()
     {
+        // ❌ ESC MATI TOTAL SAAT GAME OVER
+        if (GameManager.Instance.IsGameOver)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePauseMenu();
@@ -46,18 +50,15 @@ public class PauseMenu : MonoBehaviour
     private void TogglePauseMenu()
     {
         GameManager.Instance.TogglePause();
+
         bool isPaused = GameManager.Instance.IsPaused;
 
         if (isPaused)
-        {
-            // Reset posisi semua child sebelum menampilkan UI
             ResetChildPositions();
-        }
 
         pauseUI.SetActive(isPaused);
     }
 
-    // Fungsi untuk mengembalikan posisi semua child ke tatanan semula
     private void ResetChildPositions()
     {
         foreach (var data in childData)
@@ -81,25 +82,27 @@ public class PauseMenu : MonoBehaviour
     // 🔄 RESTART
     public void RestartScene()
     {
-        GameManager.Instance.ResumeGame();
-        SceneManager.LoadScene(
-            SceneManager.GetActiveScene().buildIndex
-        );
+        GameManager.Instance.ResetGameState();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     // ⏭️ NEXT SCENE
     public void LoadNextScene()
     {
-        GameManager.Instance.ResumeGame();
-        SceneManager.LoadScene(
-            SceneManager.GetActiveScene().buildIndex + 1
-        );
+        GameManager.Instance.ResetGameState();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     // 🏠 MAIN MENU
     public void LoadMainMenu()
     {
-        GameManager.Instance.ResumeGame();
+        GameManager.Instance.ResetGameState();
         SceneManager.LoadScene("MainMenu");
+    }
+
+    // 🔥 DIPANGGIL DARI GAME OVER
+    public void ForceClose()
+    {
+        pauseUI.SetActive(false);
     }
 }
