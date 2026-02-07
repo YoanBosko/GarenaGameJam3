@@ -23,12 +23,10 @@ public class GameOverManager : MonoBehaviour
     public void GameOver()
     {
         gameOverPanel.SetActive(true);
-        Time.timeScale = 0f; // pause game
     }
 
     public void Restart()
     {
-        Time.timeScale = 1f;
         UnityEngine.SceneManagement.SceneManager.LoadScene(
             UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex
         );
