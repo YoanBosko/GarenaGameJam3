@@ -4477,7 +4477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d51d0ec08d97b4780541c8d2615fd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  namaSceneTujuan: AmonCoba
+  namaSceneTujuan: LoadingScreen1
   animatorTransisi: {fileID: 1474465021}
   durasiTunggu: 1
 --- !u!1 &1115687165
