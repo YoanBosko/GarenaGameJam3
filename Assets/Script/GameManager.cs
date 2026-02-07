@@ -23,18 +23,13 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // state awal
         IsPaused = false;
         IsGameOver = false;
     }
 
     private IEnumerator Start()
     {
-        // 🔥 TUNGGU 1 FRAME
-        // pastikan semua OnEnable() sudah subscribe
         yield return null;
-
-        // 🔥 broadcast state awal (INI FIX 2× KLIK)
         SetFreezeState(false);
     }
 
@@ -46,6 +41,8 @@ public class GameManager : MonoBehaviour
     // ========= PAUSE =========
     public void PauseGame()
     {
+        // ❌ TIDAK BOLEH PAUSE SAAT GAME OVER
+        if (IsGameOver) return;
         if (IsPaused) return;
 
         IsPaused = true;
@@ -54,16 +51,19 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        // ❌ TIDAK BISA RESUME SAAT GAME OVER
+        if (IsGameOver) return;
         if (!IsPaused) return;
 
         IsPaused = false;
-
-        if (!IsGameOver)
-            SetFreezeState(false);
+        SetFreezeState(false);
     }
 
     public void TogglePause()
     {
+        // 🔥 GAME OVER = PAUSE TERKUNCI TOTAL
+        if (IsGameOver) return;
+
         if (IsPaused) ResumeGame();
         else PauseGame();
     }
@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
         if (IsGameOver) return;
 
         IsGameOver = true;
+        IsPaused = false; // 🔥 pastikan pause mati
         SetFreezeState(true);
     }
 
