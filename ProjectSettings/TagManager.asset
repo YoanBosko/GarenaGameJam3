@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Cursor
+  - Attack
+  - UI-Button
+  - UI-HealthBar
+  - UI-Slider
   layers:
   - Default
   - TransparentFX
@@ -17,6 +21,7 @@ TagManager:
   - 
   - 
   - Ground
+  - Attack
   - 
   - 
   - 
@@ -36,8 +41,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Transition
   m_SortingLayers:
   - name: Default
     uniqueID: 0

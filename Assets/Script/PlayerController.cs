@@ -11,15 +11,28 @@ public class PlayerController : MonoBehaviour
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
 
+    [Header("Attack Settings")]
+    public GameObject attackCollider; // Referensi ke object collider serangan
+    private OnHit onHitScript; // Referensi ke skrip OnHit
+
     private Rigidbody rb;
     private Animator anim; // [BARU] Variabel untuk Animator
     private float horizontalInput;
     private bool isGrounded;
+    private bool isAttacking = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+
+        // Memastikan collider serangan mati saat awal game
+        if (attackCollider != null)
+        {
+            attackCollider.SetActive(false);
+            // Mengambil referensi OnHit dari object attackCollider
+            onHitScript = attackCollider.GetComponent<OnHit>();
+        }
         
         // Memastikan karakter tidak terguling saat menabrak objek
         rb.constraints = RigidbodyConstraints.FreezeRotationX | 
@@ -42,9 +55,9 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("Speed", Mathf.Abs(horizontalInput));
 
         // B. Animasi Attack
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && !isAttacking)
         {
-            anim.SetTrigger("Attack"); // Memicu parameter 'Trigger' bernama Attack
+            Attack();
         }
 
         // 3. Input Lompat
@@ -61,11 +74,44 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // Gerakkan karakter menggunakan Velocity agar fisika tetap konsisten
-        rb.velocity = new Vector3(horizontalInput * moveSpeed, rb.velocity.y, 0);
+        float currentSpeed = isAttacking ? 0 : horizontalInput * moveSpeed;
+        rb.velocity = new Vector3(currentSpeed, rb.velocity.y, 0);
+    }
+
+    void Attack()
+    {
+        isAttacking = true;
+
+        if (onHitScript != null) onHitScript.ClearHitList();
+        
+        anim.SetTrigger("Attack");
+    }
+
+    // --- FUNGSI UNTUK ANIMATION EVENTS ---
+
+    // Panggil fungsi ini di frame saat serangan dimulai
+    public void EnableAttackCollider()
+    {
+        if (attackCollider != null)
+        {
+            attackCollider.SetActive(true);
+        }
+    }
+
+    // Panggil fungsi ini di frame saat serangan selesai
+    public void DisableAttackCollider()
+    {
+        if (attackCollider != null)
+        {
+            attackCollider.SetActive(false);
+        }
+        isAttacking = false; // Player bisa bergerak lagi
     }
 
     void FlipCharacter()
     {
+        if (isAttacking) return; // Jangan putar badan saat sedang menyerang
+
         if (horizontalInput > 0)
             transform.rotation = Quaternion.Euler(0, 90, 0); // Menghadap kanan
         else if (horizontalInput < 0)
