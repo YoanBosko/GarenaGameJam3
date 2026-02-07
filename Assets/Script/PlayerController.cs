@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.IsPaused) return;
+        if (GameManager.Instance.IsGameplayFrozen) return;
         // 1. Ambil Input (Hanya jika tidak sedang dalam Coroutine Move otomatis)
         if (moveCoroutine == null)
         {

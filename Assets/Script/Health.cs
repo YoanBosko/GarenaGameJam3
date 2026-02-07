@@ -9,7 +9,9 @@ public class Health : MonoBehaviour
     [Header("UI")]
     public Slider healthSlider;
 
-    void Awake()
+    private bool isDead = false;
+
+    void Start()
     {
         currentHealth = maxHealth;
         UpdateUI();
@@ -17,6 +19,8 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (isDead) return;
+
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateUI();
@@ -33,6 +37,9 @@ public class Health : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Player Mati");
+        isDead = true;
+        Debug.Log("PLAYER DEAD");
+
+        GameOverManager.Instance.GameOver();
     }
 }

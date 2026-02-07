@@ -9,22 +9,22 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            GameManager.TogglePause();
-            pauseUI.SetActive(GameManager.IsPaused);
+            GameManager.Instance.TogglePause();
+            pauseUI.SetActive(GameManager.Instance.IsPaused);
         }
     }
 
-    // ▶️ CONTINUE (RESUME GAME)
+    // ▶️ CONTINUE
     public void ContinueGame()
     {
-        GameManager.ResumeGame();
+        GameManager.Instance.ResumeGame();
         pauseUI.SetActive(false);
     }
 
-    // 🔄 RESTART SCENE
+    // 🔄 RESTART
     public void RestartScene()
     {
-        GameManager.ResumeGame();
+        GameManager.Instance.ResumeGame();
         SceneManager.LoadScene(
             SceneManager.GetActiveScene().buildIndex
         );
@@ -33,7 +33,7 @@ public class PauseMenu : MonoBehaviour
     // ⏭️ NEXT SCENE
     public void LoadNextScene()
     {
-        GameManager.ResumeGame();
+        GameManager.Instance.ResumeGame();
         SceneManager.LoadScene(
             SceneManager.GetActiveScene().buildIndex + 1
         );
@@ -42,7 +42,7 @@ public class PauseMenu : MonoBehaviour
     // 🏠 MAIN MENU
     public void LoadMainMenu()
     {
-        GameManager.ResumeGame();
+        GameManager.Instance.ResumeGame();
         SceneManager.LoadScene("MainMenu");
     }
 }
