@@ -8916,14 +8916,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7ee0660308f054f8df484b0452ca0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sliderMode: 1
   slider: {fileID: 161734681}
   maxTilt: 45
+  instantFillAngle: 30
   sliderSmoothTime: 0.4
-  fallDelay: 3
-  currentAngle: 0
-  progressPercent: 0
   maxVolume: 1
   loadNextSceneOnComplete: 0
+  fallDelay: 3
+  signedAngleFromDefault: 0
+  targetValue: 0
 --- !u!65 &161734679
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18830,14 +18832,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7ee0660308f054f8df484b0452ca0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sliderMode: 1
   slider: {fileID: 321176133}
   maxTilt: 60
+  instantFillAngle: 30
   sliderSmoothTime: 0.4
-  fallDelay: 3
-  currentAngle: 0
-  progressPercent: 0
   maxVolume: 1
   loadNextSceneOnComplete: 0
+  fallDelay: 3
+  signedAngleFromDefault: 0
+  targetValue: 0
 --- !u!65 &321176131
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23209,14 +23213,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7ee0660308f054f8df484b0452ca0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sliderMode: 1
   slider: {fileID: 377736429}
   maxTilt: 60
+  instantFillAngle: 30
   sliderSmoothTime: 0.4
-  fallDelay: 3
-  currentAngle: 0
-  progressPercent: 0
   maxVolume: 1
   loadNextSceneOnComplete: 0
+  fallDelay: 3
+  signedAngleFromDefault: 0
+  targetValue: 0
 --- !u!65 &377736427
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -35999,7 +36005,7 @@ GameObject:
   - component: {fileID: 581350649}
   m_Layer: 5
   m_Name: Restart
-  m_TagString: Untagged
+  m_TagString: UI-Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51096,7 +51102,7 @@ GameObject:
   - component: {fileID: 834812795}
   m_Layer: 5
   m_Name: MainMenu
-  m_TagString: Untagged
+  m_TagString: UI-Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
