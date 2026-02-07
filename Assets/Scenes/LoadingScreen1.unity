@@ -132,7 +132,6 @@ GameObject:
   m_Component:
   - component: {fileID: 47472311}
   - component: {fileID: 47472310}
-  - component: {fileID: 47472309}
   - component: {fileID: 47472312}
   m_Layer: 0
   m_Name: GameManager
@@ -141,20 +140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &47472309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 47472308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8a67994d06f2484bb6d6ad02d8a4207, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorPrefab: {fileID: 7466923285262506705, guid: 079704e78afe0074ca642d754c5d8efa, type: 3}
-  spawnDelay: 1
 --- !u!114 &47472310
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,6 +16,9 @@ public class EnemyShooter : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.IsPaused) return;
+        if (GameManager.Instance.IsGameplayFrozen) return;
+
         timer += Time.deltaTime;
 
         if (timer >= fireInterval)
