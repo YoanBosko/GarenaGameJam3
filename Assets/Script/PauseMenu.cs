@@ -76,6 +76,7 @@ public class PauseMenu : MonoBehaviour
     {
         GameManager.Instance.ResumeGame();
         pauseUI.SetActive(false);
+        Debug.Log("continue");
     }
 
     // 🔄 RESTART
@@ -85,6 +86,7 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene(
             SceneManager.GetActiveScene().buildIndex
         );
+        Debug.Log("restart");
     }
 
     // ⏭️ NEXT SCENE
@@ -94,6 +96,7 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene(
             SceneManager.GetActiveScene().buildIndex + 1
         );
+        Debug.Log("Loadnextscene");
     }
 
     // 🏠 MAIN MENU
@@ -101,5 +104,6 @@ public class PauseMenu : MonoBehaviour
     {
         GameManager.Instance.ResumeGame();
         SceneManager.LoadScene("MainMenu");
+        Debug.Log("LoadMainmenu");
     }
 }

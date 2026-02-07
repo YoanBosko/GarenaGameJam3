@@ -92,14 +92,14 @@ public class TiltSliderLoader : MonoBehaviour
 
         yield return new WaitForSeconds(fallDelay);
 
-        Debug.Log("Udh Full");
+    Debug.Log("Udh Full");
 
-        if (loadNextSceneOnComplete)
-        {
-            SceneManager.LoadScene(
-                SceneManager.GetActiveScene().buildIndex + 1
-            );
-        }
+    if (loadNextSceneOnComplete)
+    {
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().buildIndex + 1
+        );
+    }
 
     }
 
