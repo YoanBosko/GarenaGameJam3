@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/YoanChar.unity
+    guid: e17fd16e67405f54885793c9dd73be00
+  - enabled: 1
+    path: Assets/Scenes/AmonCoba.unity
+    guid: 4c06ad7e9c2aede49a4bf7953f192a4a
   m_configObjects: {}
