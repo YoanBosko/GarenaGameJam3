@@ -146,12 +146,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d9207583ff68b449ac441a713e6bbc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 10
+  damage: 10
+  range: 20
   destroyOnTags:
   - Ground
   - Wall
   - Player
   - UI-Button
   - UI-HealthBar
-  - UI-Slider
   - Cursor
   visualFeedbackDuration: 0.1

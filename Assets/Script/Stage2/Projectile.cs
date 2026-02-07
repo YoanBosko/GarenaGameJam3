@@ -1,19 +1,30 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
 
 public class Projectile : MonoBehaviour
 {
-    private float speed;
-    private float damage;
-    private float range;
-    private Vector3 startPosition;
+    [Header("Projectile Stats")]
+    public float speed = 10f;
+    public float damage = 10f;
+    public float range = 20f;
+
+    Vector3 startPosition;
 
     [Header("Collision Settings")]
-    public string[] destroyOnTags = { "Ground", "Wall", "Player" }; // Tag yang membuat peluru hancur
+    public string[] destroyOnTags =
+    {
+        "Ground",
+        "Wall",
+        "Player",
+        "UI-HealthBar"
+    };
+
     public float visualFeedbackDuration = 0.1f;
 
+    // ==========================
+    // SETUP (DIPAKAI OLEH EnemyShooter)
+    // ==========================
     public void Setup(float _speed, float _damage, float _range)
     {
         speed = _speed;
@@ -22,12 +33,17 @@ public class Projectile : MonoBehaviour
         startPosition = transform.position;
     }
 
+    void Start()
+    {
+        startPosition = transform.position;
+    }
+
     void Update()
     {
-        // Gerakan proyektil maju searah sumbu Z lokal (atau Forward)
+        // Gerak maju
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
-        // Cek jarak tempuh
+        // Hancur jika sudah melebihi jarak
         if (Vector3.Distance(startPosition, transform.position) >= range)
         {
             Destroy(gameObject);
@@ -36,25 +52,57 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 1. Interaksi dengan Player
-        if (other.CompareTag("Player"))
+        // =========================
+        // DAMAGE KE PLAYER (SATU HEALTH)
+        // =========================
+
+        // Kena UI-HealthBar (slider / tameng UI)
+        if (other.CompareTag("UI-HealthBar"))
         {
-            Debug.Log("Player terkena damage: " + damage);
-            // Panggil fungsi damage di PlayerController jika ada
-            HandleDestruction(other.gameObject);
+            Health playerHealth = FindObjectOfType<Health>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damage);
+            }
+
+            DestroyProjectile(other);
+            return;
         }
 
-        // 2. Interaksi dengan UI (Sama seperti OnHit Player)
+        // Kena Player langsung
+        if (other.CompareTag("Player"))
+        {
+            Health health = other.GetComponent<Health>();
+            if (health != null)
+            {
+                health.TakeDamage(damage);
+            }
+
+            DestroyProjectile(other);
+            return;
+        }
+
+        // =========================
+        // UI BUTTON
+        // =========================
         if (other.CompareTag("UI-Button"))
         {
             HandleButton(other.gameObject);
-        }
-        else if (other.CompareTag("UI-HealthBar"))
-        {
-            HandleHealthBar(other.gameObject);
+            DestroyProjectile(other);
+            return;
         }
 
-        // 3. Cek apakah harus hancur
+        // =========================
+        // OBJECT LAIN (GROUND / WALL)
+        // =========================
+        DestroyProjectile(other);
+    }
+
+    // ==========================
+    // DESTROY LOGIC
+    // ==========================
+    void DestroyProjectile(Collider other)
+    {
         foreach (string tag in destroyOnTags)
         {
             if (other.CompareTag(tag))
@@ -65,6 +113,9 @@ public class Projectile : MonoBehaviour
         }
     }
 
+    // ==========================
+    // UI BUTTON VISUAL FEEDBACK
+    // ==========================
     private void HandleButton(GameObject obj)
     {
         Button btn = obj.GetComponent<Button>();
@@ -75,29 +126,27 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void HandleHealthBar(GameObject obj)
-    {
-        Slider healthSlider = obj.GetComponentInChildren<Slider>();
-        if (healthSlider != null)
-        {
-            healthSlider.value -= damage;
-        }
-    }
-
     private IEnumerator TriggerButtonVisual(Button btn)
     {
         if (btn.transition == Selectable.Transition.ColorTint && btn.targetGraphic != null)
         {
             ColorBlock cb = btn.colors;
-            btn.targetGraphic.CrossFadeColor(cb.pressedColor, cb.fadeDuration, true, true);
-            yield return new WaitForSeconds(visualFeedbackDuration);
-            btn.targetGraphic.CrossFadeColor(cb.normalColor, cb.fadeDuration, true, true);
-        }
-    }
 
-    private void HandleDestruction(GameObject hitObj)
-    {
-        // Logika tambahan jika ingin partikel hancur, dll.
-        Destroy(gameObject);
+            btn.targetGraphic.CrossFadeColor(
+                cb.pressedColor,
+                cb.fadeDuration,
+                true,
+                true
+            );
+
+            yield return new WaitForSeconds(visualFeedbackDuration);
+
+            btn.targetGraphic.CrossFadeColor(
+                cb.normalColor,
+                cb.fadeDuration,
+                true,
+                true
+            );
+        }
     }
 }

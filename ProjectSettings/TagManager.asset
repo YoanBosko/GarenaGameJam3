@@ -8,7 +8,8 @@ TagManager:
   - Attack
   - UI-Button
   - UI-HealthBar
-  - UI-Slider
+  - Wall
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,6 @@ TagManager:
   - 
   - 
   - Ground
-  - Attack
   - 
   - 
   - 
@@ -41,7 +41,8 @@ TagManager:
   - 
   - 
   - 
-  - Transition
+  - 
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0

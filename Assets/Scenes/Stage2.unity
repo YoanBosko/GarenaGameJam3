@@ -530,6 +530,7 @@ GameObject:
   - component: {fileID: 321176132}
   - component: {fileID: 321176131}
   - component: {fileID: 321176130}
+  - component: {fileID: 321176134}
   m_Layer: 0
   m_Name: HeatlhBar
   m_TagString: UI-HealthBar
@@ -565,7 +566,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 321176128}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d7ee0660308f054f8df484b0452ca0f, type: 3}
   m_Name: 
@@ -673,10 +674,25 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &321176134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321176128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba4046de50d94b4bafdb74e385a33c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 100
+  slider: {fileID: 321176133}
 --- !u!1 &326985261
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,7 +726,7 @@ RectTransform:
   m_Father: {fileID: 1799279574}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.5, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -791,7 +807,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.793, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 40.19, y: 80.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!54 &327113717
 Rigidbody:
@@ -1285,7 +1301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &501948752
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1364,7 +1380,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 3
@@ -1432,7 +1448,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4547823572715880551, guid: 839bef4932963be46ba25298243825f5, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 745090437}
   m_SourcePrefab: {fileID: 100100000, guid: 839bef4932963be46ba25298243825f5, type: 3}
 --- !u!1 &563290453
 GameObject:
@@ -1473,7 +1492,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 47.73, y: 80.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!54 &563290455
 Rigidbody:
@@ -1945,7 +1964,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.41, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 40.19, y: 80.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!54 &639353869
 Rigidbody:
@@ -2166,7 +2185,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1.908, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 40.19, y: 80.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!54 &695436365
 Rigidbody:
@@ -2348,6 +2367,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695436363}
   m_CullTransparentMesh: 1
+--- !u!1 &745090431 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4547823572715880551, guid: 839bef4932963be46ba25298243825f5, type: 3}
+  m_PrefabInstance: {fileID: 521227666}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &745090437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745090431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 501a56b9b52712f478110ba9ba06833f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  healthSlider: {fileID: 321176133}
 --- !u!1 &762953920
 GameObject:
   m_ObjectHideFlags: 0
@@ -3107,7 +3146,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1.53, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 40.19, y: 80.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!54 &1152935653
 Rigidbody:
@@ -4106,7 +4145,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1.169, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 36.01, y: 80.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!54 &1713875841
 Rigidbody:
