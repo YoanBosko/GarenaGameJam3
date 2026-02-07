@@ -8,7 +8,7 @@ public class CursorFollowMouse : MonoBehaviour
     Rigidbody rb;
 
     [Header("World Settings")]
-    public float cursorWorldZ = 5f;
+    public float cursorWorldZ = 0f;
     public float sensitivity = 1f;
 
     Vector2 screenPos;
