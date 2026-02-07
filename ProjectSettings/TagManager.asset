@@ -10,6 +10,8 @@ TagManager:
   - UI-HealthBar
   - Wall
   - Ground
+  - Enemy-HealthBar
+  - Boss
   layers:
   - Default
   - TransparentFX

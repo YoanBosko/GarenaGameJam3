@@ -2,18 +2,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 public class OnHit : MonoBehaviour
 {
     [Header("Settings")]
     public float damageValue = 10f;
-    public float visualFeedbackDuration = 0.1f; // Durasi efek warna ditekan
+    public float visualFeedbackDuration = 0.1f;
 
-    // Menyimpan daftar objek yang sudah terkena hit dalam satu ayunan
+    // Anti double-hit dalam satu attack
     private HashSet<GameObject> alreadyHit = new HashSet<GameObject>();
 
-    // Dipanggil oleh PlayerController saat animasi attack dimulai
+    // Dipanggil dari PlayerController / Animation Event
     public void ClearHitList()
     {
         alreadyHit.Clear();
@@ -21,67 +20,89 @@ public class OnHit : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Jika objek sudah pernah terkena hit dalam ayunan ini, abaikan
-        if (alreadyHit.Contains(other.gameObject) || alreadyHit.Count >= 1) return;
+        // Pastikan hanya aktif saat attack
+        if (!AttackState.isAttacking) return;
 
-        // Tambahkan ke daftar agar tidak terkena hit lagi di ayunan yang sama
-        alreadyHit.Add(other.gameObject);
+        // Ambil EnemyHealth dari parent (kalau ada)
+        EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
 
-        // Logika berdasarkan Tag
+        Debug.Log("ini amon");
+
+        // =========================
+        // HIT ENEMY / ENEMY HEALTHBAR
+        // =========================
+        if ((other.CompareTag("Boss") || other.CompareTag("Enemy-HealthBar")) && enemy != null)
+        {
+            // Cegah double hit (body + healthbar)
+            if (alreadyHit.Contains(enemy.gameObject)) return;
+
+            alreadyHit.Add(enemy.gameObject);
+            enemy.TakeDamage(damageValue);
+
+            Debug.Log($"Enemy hit: {enemy.name}, damage: {damageValue}");
+            return;
+        }
+
+        // =========================
+        // HIT UI BUTTON
+        // =========================
         if (other.CompareTag("UI-Button"))
         {
+            if (alreadyHit.Contains(other.gameObject)) return;
+
+            alreadyHit.Add(other.gameObject);
             HandleButton(other.gameObject);
+            return;
         }
-        else if (other.CompareTag("UI-HealthBar"))
+
+        // =========================
+        // HIT UI HEALTH BAR (manual)
+        // =========================
+        if (other.CompareTag("UI-HealthBar"))
         {
+            if (alreadyHit.Contains(other.gameObject)) return;
+
+            alreadyHit.Add(other.gameObject);
             HandleHealthBar(other.gameObject);
         }
     }
 
+    // =========================
+    // UI BUTTON
+    // =========================
     private void HandleButton(GameObject obj)
     {
-        // Mencoba mengambil komponen Button (UI atau World Space)
         Button btn = obj.GetComponent<Button>();
         if (btn != null)
         {
             btn.onClick.Invoke();
-
-            // Memberikan umpan balik visual (Pressed Color)
             StartCoroutine(TriggerButtonVisual(btn));
-
             Debug.Log("Button Hit: OnClick invoked!");
         }
     }
 
     private IEnumerator TriggerButtonVisual(Button btn)
     {
-        // Pastikan tombol menggunakan transisi warna
-        if (btn.transition == Selectable.Transition.ColorTint)
-        {
-            ColorBlock cb = btn.colors;
-            Graphic targetGraphic = btn.targetGraphic;
+        if (btn.transition != Selectable.Transition.ColorTint) yield break;
 
-            if (targetGraphic != null)
-            {
-                // Ubah ke warna pressed
-                targetGraphic.CrossFadeColor(cb.pressedColor, cb.fadeDuration, true, true);
-                
-                // Tunggu sebentar
-                yield return new WaitForSeconds(visualFeedbackDuration);
-                
-                // Kembalikan ke warna normal (atau highlighted jika perlu)
-                targetGraphic.CrossFadeColor(cb.normalColor, cb.fadeDuration, true, true);
-            }
-        }
+        ColorBlock cb = btn.colors;
+        Graphic targetGraphic = btn.targetGraphic;
+        if (targetGraphic == null) yield break;
+
+        targetGraphic.CrossFadeColor(cb.pressedColor, cb.fadeDuration, true, true);
+        yield return new WaitForSeconds(visualFeedbackDuration);
+        targetGraphic.CrossFadeColor(cb.normalColor, cb.fadeDuration, true, true);
     }
 
+    // =========================
+    // UI HEALTH BAR (fallback)
+    // =========================
     private void HandleHealthBar(GameObject obj)
     {
-        // Mencoba mengambil Slider dari object tersebut atau parent-nya
-        Slider healthSlider = obj.GetComponentInChildren<Slider>();
-        if (healthSlider != null)
+        Slider slider = obj.GetComponentInChildren<Slider>();
+        if (slider != null)
         {
-            healthSlider.value -= damageValue;
+            slider.value -= damageValue;
             Debug.Log("Health Bar Hit: Value reduced!");
         }
     }
