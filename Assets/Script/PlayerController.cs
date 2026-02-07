@@ -1,57 +1,71 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
+    // --- SINGLETON PATTERN ---
+    public static PlayerController Instance { get; private set; }
+
     [Header("Movement Settings")]
     public float moveSpeed = 8f;
     public float jumpForce = 12f;
     
-    [Header("Detection")] // Untuk boolean mendeteksi tanah
+    [Header("Detection")]
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
 
     [Header("Attack Settings")]
-    public GameObject attackCollider; // Referensi ke object collider serangan
-    private OnHit onHitScript; // Referensi ke skrip OnHit
+    public GameObject attackCollider; 
+    private OnHit onHitScript;
 
     private Rigidbody rb;
-    private Animator anim; // [BARU] Variabel untuk Animator
+    private Animator anim;
     private float horizontalInput;
     private bool isGrounded;
     private bool isAttacking = false;
+    private Coroutine moveCoroutine; // Untuk melacak gerakan otomatis
+
+    void Awake()
+    {
+        // Inisialisasi Singleton
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
 
-        // Memastikan collider serangan mati saat awal game
         if (attackCollider != null)
         {
             attackCollider.SetActive(false);
-            // Mengambil referensi OnHit dari object attackCollider
             onHitScript = attackCollider.GetComponent<OnHit>();
         }
         
-        // Memastikan karakter tidak terguling saat menabrak objek
-        rb.constraints = RigidbodyConstraints.FreezeRotationX | 
-                         RigidbodyConstraints.FreezeRotationY | 
-                         RigidbodyConstraints.FreezeRotationZ | 
-                         RigidbodyConstraints.FreezePositionZ;
+        // Memastikan karakter tidak terguling
+        // rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
     }
 
     void Update()
     {
-        // 1. Ambil Input (A/D atau Panah)
-        horizontalInput = Input.GetAxisRaw("Horizontal");
+        // 1. Ambil Input (Hanya jika tidak sedang dalam Coroutine Move otomatis)
+        if (moveCoroutine == null)
+        {
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+        }
 
-        // 2. Deteksi apakah karakter menyentuh tanah
+        // 2. Deteksi Tanah
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
 
         // A. Animasi Jalan/Lari
-        // Kita kirim nilai absolut (selalu positif) dari input horizontal.
-        // Jika 0 = diam, jika 1 = jalan.
         anim.SetFloat("Speed", Mathf.Abs(horizontalInput));
 
         // B. Animasi Attack
@@ -64,16 +78,15 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, 0);
-            // anim.SetTrigger("Jump"); // Aktifkan baris ini jika sudah ada animasi lompat
         }
 
-        // 4. Memutar arah karakter (Facing Direction)
+        // 4. Memutar arah
         FlipCharacter();
     }
 
     void FixedUpdate()
     {
-        // Gerakkan karakter menggunakan Velocity agar fisika tetap konsisten
+        // Gerakkan karakter
         float currentSpeed = isAttacking ? 0 : horizontalInput * moveSpeed;
         rb.velocity = new Vector3(currentSpeed, rb.velocity.y, 0);
     }
@@ -81,40 +94,69 @@ public class PlayerController : MonoBehaviour
     void Attack()
     {
         isAttacking = true;
-
         if (onHitScript != null) onHitScript.ClearHitList();
-        
         anim.SetTrigger("Attack");
+    }
+
+    // --- FUNGSI GERAK OTOMATIS (DIPANGGIL DARI UI/SCRIPT LAIN) ---
+
+    public void MoveLeft()
+    {
+        if (moveCoroutine != null) StopCoroutine(moveCoroutine);
+        moveCoroutine = StartCoroutine(TimedMove(-1f, 0.1f));
+    }
+
+    public void MoveRight()
+    {
+        if (moveCoroutine != null) StopCoroutine(moveCoroutine);
+        moveCoroutine = StartCoroutine(TimedMove(1f, 0.1f));
+    }
+
+    public void MoveJump()
+    {
+        if (isGrounded)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, jumpForce, 0);
+        }
+    }
+
+    public void MoveAttack()
+    {
+        if (!isAttacking)
+        {
+            Attack();
+        }
+    }
+
+    private IEnumerator TimedMove(float direction, float duration)
+    {
+        horizontalInput = direction;
+        yield return new WaitForSeconds(duration);
+        horizontalInput = 0;
+        moveCoroutine = null;
     }
 
     // --- FUNGSI UNTUK ANIMATION EVENTS ---
 
-    // Panggil fungsi ini di frame saat serangan dimulai
     public void EnableAttackCollider()
     {
-        if (attackCollider != null)
-        {
-            attackCollider.SetActive(true);
-        }
+        if (attackCollider != null) attackCollider.SetActive(true);
+        isAttacking = false; // Mengembalikan kontrol gerak setelah animasi selesai
     }
 
-    // Panggil fungsi ini di frame saat serangan selesai
     public void DisableAttackCollider()
     {
-        if (attackCollider != null)
-        {
-            attackCollider.SetActive(false);
-        }
-        isAttacking = false; // Player bisa bergerak lagi
+        if (attackCollider != null) attackCollider.SetActive(false);
+        // isAttacking = false; // Mengembalikan kontrol gerak setelah animasi selesai
     }
 
     void FlipCharacter()
     {
-        if (isAttacking) return; // Jangan putar badan saat sedang menyerang
+        if (isAttacking) return;
 
         if (horizontalInput > 0)
-            transform.rotation = Quaternion.Euler(0, 90, 0); // Menghadap kanan
+            transform.rotation = Quaternion.Euler(0, 90, 0);
         else if (horizontalInput < 0)
-            transform.rotation = Quaternion.Euler(0, -90, 0); // Menghadap kiri
+            transform.rotation = Quaternion.Euler(0, -90, 0);
     }
 }
