@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: a4e89c72faadfb445b99068126f650d5
+  - enabled: 0
     path: Assets/Scenes/YoanChar.unity
     guid: e17fd16e67405f54885793c9dd73be00
   - enabled: 0
