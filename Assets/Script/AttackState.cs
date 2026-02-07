@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AttackState : MonoBehaviour
 {
-    public static bool isAttacking;
+    public static bool isAttacking = true;
     
     public void StartAttack()
     {
