@@ -41,7 +41,7 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         if (GameManager.Instance.IsPaused) return;
-        if (GameManager.Instance.IsGameplayFrozen) return;
+        if (GameManager.Instance.IsGameOver) return;
         // Gerak maju
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
