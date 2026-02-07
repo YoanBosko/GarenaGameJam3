@@ -21,6 +21,15 @@ public class TiltSliderLoader : MonoBehaviour
     [SerializeField] float currentAngle;     // derajat real
     [SerializeField] float progressPercent;  // 0–100 %
 
+    [Header("Volume Settings")]
+    [Range(0f, 1f)]
+    public float maxVolume = 1f;
+
+    [Header("Scene Transition")]
+    public bool loadNextSceneOnComplete = false;
+
+
+
     bool completed;
     Rigidbody rb;
     float sliderVelocity;
@@ -47,6 +56,10 @@ public class TiltSliderLoader : MonoBehaviour
 
         // === TARGET SLIDER ===
         float targetValue = progressPercent / 100f;
+
+        // === SET VOLUME (YOUTUBE STYLE) ===
+        AudioListener.volume = slider.value * maxVolume;   
+
 
         // === ANIMASI SLIDER ===
         slider.value = Mathf.SmoothDamp(
@@ -81,9 +94,13 @@ public class TiltSliderLoader : MonoBehaviour
 
         Debug.Log("Udh Full");
 
-        // SceneManager.LoadScene(
-        //     SceneManager.GetActiveScene().buildIndex + 1
-        // );
+        if (loadNextSceneOnComplete)
+        {
+            SceneManager.LoadScene(
+                SceneManager.GetActiveScene().buildIndex + 1
+            );
+        }
+
     }
 
     float NormalizeAngle(float angle)
