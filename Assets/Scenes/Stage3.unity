@@ -49845,6 +49845,10 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   slider: {fileID: 771291203}
+  backgroundImage: {fileID: 0}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  feedbackDuration: 0.2
+  shakeIntensity: 10
 --- !u!114 &771291206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137856,18 +137860,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthSlider: {fileID: 771291203}
---- !u!114 &2134192041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2134192033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39d6e94406ad8824ea451591c3247b7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  shieldHealthBar: {fileID: 771291205}
 --- !u!1 &2135002800
 GameObject:
   m_ObjectHideFlags: 0
