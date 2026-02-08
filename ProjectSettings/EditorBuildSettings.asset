@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage3.unity
     guid: fbef0aa6b1c1bf949be7132c9ffd8b1d
+  - enabled: 1
+    path: Assets/Scenes/Creditscene.unity
+    guid: 777d8f9e9bc9193449a5c9e8afe9ae41
   m_configObjects: {}

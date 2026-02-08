@@ -70,6 +70,11 @@ public class EnemyShooter : MonoBehaviour
                 proj.Setup(projectileSpeed, projectileDamage, projectileRange);
             }
         }
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX("EnemyShoot");
+        }
         // Opsional: Jalankan SFX jika kamu ingin musuh mengeluarkan suara saat menembak
         // AudioManager.Instance.PlaySFX("EnemyShoot");
     }
