@@ -12,7 +12,23 @@ public class EnemyShooter : MonoBehaviour
     public float projectileDamage = 10f;
     public float projectileRange = 20f;
 
+    [Header("Animation Settings")]
+    private Animator anim;              // Komponen Animator
+
+    // Variabel untuk menyimpan lokasi awal
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
     private float timer;
+    
+    void Start()
+    {
+        // Mengambil komponen Animator pada object ini
+        anim = GetComponent<Animator>();
+
+        // Menyimpan posisi dan rotasi awal saat game dimulai
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
+    }
 
     void Update()
     {
@@ -30,6 +46,18 @@ public class EnemyShooter : MonoBehaviour
 
     void Shoot()
     {
+        // --- RESET POSISI KE AWAL ---
+        // Mengembalikan posisi karakter agar tidak bergeser akibat animasi
+        transform.position = initialPosition;
+        transform.rotation = initialRotation;
+
+        
+        if (anim != null)
+        {
+            anim.SetTrigger("Slash");
+            Debug.Log("EnemyShooter: Shoot animation triggered.");
+        }
+
         if (projectilePrefab != null && firePoint != null)
         {
             // Spawn proyektil
@@ -42,5 +70,12 @@ public class EnemyShooter : MonoBehaviour
                 proj.Setup(projectileSpeed, projectileDamage, projectileRange);
             }
         }
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX("EnemyShoot");
+        }
+        // Opsional: Jalankan SFX jika kamu ingin musuh mengeluarkan suara saat menembak
+        // AudioManager.Instance.PlaySFX("EnemyShoot");
     }
 }
