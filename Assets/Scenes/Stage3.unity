@@ -18624,6 +18624,8 @@ GameObject:
   m_Component:
   - component: {fileID: 289086135}
   - component: {fileID: 289086136}
+  - component: {fileID: 289086138}
+  - component: {fileID: 289086137}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -18662,6 +18664,41 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.9, z: 0.5}
+  m_Center: {x: 0, y: 0.43, z: 0}
+--- !u!114 &289086137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289086134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22e88f1aa7ca154abb2f26596e8f4ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageValue: 10
+  visualFeedbackDuration: 0.1
+--- !u!65 &289086138
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289086134}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -70920,6 +70957,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9e6105c8c0b13574b877f005823c933b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1094025350}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9e6105c8c0b13574b877f005823c933b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1094025352}
   m_SourcePrefab: {fileID: 100100000, guid: 9e6105c8c0b13574b877f005823c933b, type: 3}
 --- !u!1 &1094025342 stripped
 GameObject:
@@ -70999,7 +71039,7 @@ MonoBehaviour:
   stopDistance: 3
   attackInterval: 3
   retreatDuration: 1.5
-  damageHitbox: {fileID: 0}
+  damageHitbox: {fileID: 289086134}
 --- !u!114 &1094025349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71029,6 +71069,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39d6e94406ad8824ea451591c3247b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1094025352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094025342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d790624a0b18e45b142d1b70eda537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2134192034}
+  attackRange: 1.5
+  damage: 15
+  attackCooldown: 1.2
 --- !u!1 &1097220226
 GameObject:
   m_ObjectHideFlags: 0
