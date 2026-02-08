@@ -80,4 +80,45 @@ public class CursorFollowMouse : MonoBehaviour
         // === 5. GERAKKAN CURSOR (PHYSICS FRIENDLY) ===
         rb.velocity = (targetWorld - rb.position) / Time.fixedDeltaTime;
     }
+
+    // === DETEKSI TABRAKAN ===
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Cek apakah objek yang ditabrak memiliki tag yang terdaftar
+        // foreach (string t in targetTags)
+        // {
+        //     if (collision.gameObject.CompareTag(t))
+        //     {
+                
+        //         break;
+        //     }
+        // }
+
+        // Panggil SFX dari AudioManager
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlaySFX("UIGeser");
+                }
+    }
+
+    // Gunakan ini jika salah satu collider diset sebagai "Is Trigger"
+    private void OnTriggerEnter(Collider other)
+    {
+        // foreach (string t in targetTags)
+        // {
+        //     if (other.CompareTag(t))
+        //     {
+        //         if (AudioManager.Instance != null)
+        //         {
+        //             AudioManager.Instance.PlaySFX(hitSFXName);
+        //         }
+        //         break;
+        //     }
+        // }
+        // Panggil SFX dari AudioManager
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlaySFX("UIGeser");
+                }
+    }
 }

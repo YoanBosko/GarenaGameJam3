@@ -1,4 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Collections;
 using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
@@ -15,12 +18,23 @@ public class AudioManager : MonoBehaviour
         public float volume = 0.5f;
     }
 
+    [System.Serializable]
+    public class SceneBGMConfig
+    {
+        public string sceneName; // Nama Scene di Build Settings
+        public string soundName; // Nama BGM yang ada di bgmList
+    }
+
     [Header("Audio Data")]
     public List<Sound> sfxList = new List<Sound>();
     public List<Sound> bgmList = new List<Sound>();
 
+    [Header("Scene BGM Configurations")]
+    public List<SceneBGMConfig> sceneBGMConfigs = new List<SceneBGMConfig>();
+
     private AudioSource bgmSource;
     private AudioSource[] sfxSources = new AudioSource[3];
+    private AudioSource loopSfxSource; // Source khusus untuk SFX looping (seperti lari)
     private int currentSfxSourceIndex = 0;
 
     void Awake()
@@ -38,6 +52,18 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        // Berlangganan ke event perpindahan scene
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        // Berhenti berlangganan saat object dihancurkan
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void InitializeAudioSources()
     {
         // Setup BGM Source
@@ -50,6 +76,23 @@ public class AudioManager : MonoBehaviour
         {
             sfxSources[i] = gameObject.AddComponent<AudioSource>();
             sfxSources[i].playOnAwake = false;
+        }
+
+        // Setup 1 Looping SFX Source (Khusus suara berulang)
+        loopSfxSource = gameObject.AddComponent<AudioSource>();
+        loopSfxSource.loop = true;
+        loopSfxSource.playOnAwake = false;
+    }
+
+    // Fungsi otomatis yang dipanggil setiap kali scene baru dimuat
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Cari apakah ada konfigurasi BGM untuk scene yang baru dimuat
+        SceneBGMConfig config = sceneBGMConfigs.Find(x => x.sceneName == scene.name);
+        
+        if (config != null)
+        {
+            PlayBGM(config.soundName);
         }
     }
 
@@ -64,7 +107,8 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        if (bgmSource.clip == s.clip) return; // Jangan restart jika lagu yang sama
+        // Jika lagu yang ingin diputar sudah sedang berjalan, abaikan agar tidak restart dari nol
+        if (bgmSource.clip == s.clip && bgmSource.isPlaying) return;
 
         bgmSource.clip = s.clip;
         bgmSource.volume = s.volume;
@@ -87,6 +131,16 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        // Tambahan Pertama: Cek apakah suara yang sama sedang dimainkan di salah satu source pool
+        foreach (AudioSource source in sfxSources)
+        {
+            if (source.isPlaying && source.clip == s.clip)
+            {
+                // Jika suara yang sama sedang diputar, abaikan panggilan ini (Anti-Spam)
+                return;
+            }
+        }
+
         // Mencari source yang sedang tidak memutar lagu, 
         // atau gunakan sistem rotasi jika semua penuh.
         AudioSource currentSource = sfxSources[currentSfxSourceIndex];
@@ -97,5 +151,26 @@ public class AudioManager : MonoBehaviour
 
         // Rotasi index (0, 1, 2, kembali ke 0)
         currentSfxSourceIndex = (currentSfxSourceIndex + 1) % sfxSources.Length;
+    }
+
+    // Tambahan Kedua: Fungsi untuk memainkan SFX yang terus berulang (seperti lari)
+    public void PlaySFXLoop(string soundName)
+    {
+        Sound s = sfxList.Find(x => x.name == soundName);
+        if (s == null) return;
+
+        // Jika suara loop yang diminta sudah sedang berputar, jangan di-reset
+        if (loopSfxSource.clip == s.clip && loopSfxSource.isPlaying) return;
+
+        loopSfxSource.clip = s.clip;
+        loopSfxSource.volume = s.volume;
+        loopSfxSource.Play();
+    }
+
+    // Fungsi untuk mematikan SFX looping
+    public void StopSFXLoop()
+    {
+        loopSfxSource.Stop();
+        loopSfxSource.clip = null;
     }
 }
