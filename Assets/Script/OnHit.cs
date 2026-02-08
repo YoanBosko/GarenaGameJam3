@@ -24,7 +24,8 @@ public class OnHit : MonoBehaviour
         if (!AttackState.isAttacking) return;
 
         // Ambil EnemyHealth dari parent (kalau ada)
-        EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
+        // EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
+        EnemyHealth enemy = null;
 
         // =========================
         // 1️⃣ COBA LANGSUNG (BODY ENEMY)
