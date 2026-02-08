@@ -49845,6 +49845,10 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   slider: {fileID: 771291203}
+  backgroundImage: {fileID: 0}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  feedbackDuration: 0.2
+  shakeIntensity: 10
 --- !u!114 &771291206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137856,6 +137860,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthSlider: {fileID: 771291203}
+  shieldHealthBar: {fileID: 771291205}
 --- !u!114 &2134192041
 MonoBehaviour:
   m_ObjectHideFlags: 0
