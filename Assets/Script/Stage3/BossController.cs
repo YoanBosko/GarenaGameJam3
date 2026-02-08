@@ -45,6 +45,8 @@ public class BossController : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.IsGameplayFrozen)
+        return;
         if (player == null) return;
 
         // Hitung jarak ke player (X-axis saja)
