@@ -3,10 +3,18 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
+    [Header("Health")]
     public float maxHealth = 100f;
     public float currentHealth;
 
-    public Slider healthSlider;
+    [Header("UI")]
+    public Slider healthSlider; // optional (kalau slider nempel di enemy)
+
+    [Header("On Death")]
+    public GameObject objectToDisable;
+    public bool destroyEnemy = true;
+
+    private bool isDead;
 
     void Awake()
     {
@@ -16,7 +24,9 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        Debug.Log("BOSS KENA DAMAGE: " + damage);
+        if (isDead) return;
+
+        Debug.Log($"{name} kena damage: {damage}");
 
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
@@ -26,7 +36,6 @@ public class EnemyHealth : MonoBehaviour
             Die();
     }
 
-
     void UpdateUI()
     {
         if (healthSlider != null)
@@ -35,7 +44,14 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
-        Debug.Log($"{gameObject.name} mati");
-        Destroy(gameObject);
+        isDead = true;
+
+        Debug.Log($"{name} MATI");
+
+        if (objectToDisable != null)
+            objectToDisable.SetActive(false);
+
+        if (destroyEnemy)
+            Destroy(gameObject);
     }
 }
