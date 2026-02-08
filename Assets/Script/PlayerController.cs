@@ -91,6 +91,15 @@ public class PlayerController : MonoBehaviour
         // Gerakkan karakter
         float currentSpeed = isAttacking ? 0 : horizontalInput * moveSpeed;
         rb.velocity = new Vector3(currentSpeed, rb.velocity.y, 0);
+
+        if (horizontalInput != 0 && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFXLoop("PlayerRun");
+        }
+        else if (horizontalInput == 0 && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopSFXLoop();
+        }
     }
 
     void Attack()
@@ -98,6 +107,10 @@ public class PlayerController : MonoBehaviour
         isAttacking = true;
         if (onHitScript != null) onHitScript.ClearHitList();
         anim.SetTrigger("Attack");
+        if(AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX("PlayerSlash");
+        }
     }
 
     // --- FUNGSI GERAK OTOMATIS (DIPANGGIL DARI UI/SCRIPT LAIN) ---

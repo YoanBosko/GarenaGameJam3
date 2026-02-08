@@ -25,6 +25,11 @@ public class Health : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateUI();
 
+        if( AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX("PlayerGetHit");
+        }
+
         if (currentHealth <= 0)
             Die();
     }

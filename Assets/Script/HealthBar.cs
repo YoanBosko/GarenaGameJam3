@@ -19,6 +19,11 @@ public class ShieldHealthBar : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         slider.value = currentHealth / maxHealth;
 
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX("UIAttack");
+        }
+
         Debug.Log($"Shield HP: {currentHealth}");
 
         if (currentHealth <= 0)
