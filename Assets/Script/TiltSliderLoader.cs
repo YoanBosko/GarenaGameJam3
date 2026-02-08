@@ -164,12 +164,12 @@ public class TiltSliderLoader : MonoBehaviour
         completed = true;
         slider.value = 1f;
 
-        if (rb != null)
-        {
-            rb.useGravity = true;
-            rb.drag = 0f;
-            rb.angularDrag = 0f;
-        }
+        // if (rb != null)
+        // {
+        //     rb.useGravity = true;
+        //     rb.drag = 0f;
+        //     rb.angularDrag = 0f;
+        // }
 
         yield return new WaitForSeconds(fallDelay);
 
