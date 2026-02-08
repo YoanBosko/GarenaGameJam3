@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseUI;
+    public string mainMenuSceneName = "MainMenu";
 
     private struct InitialTransform
     {
@@ -97,7 +98,7 @@ public class PauseMenu : MonoBehaviour
     public void LoadMainMenu()
     {
         GameManager.Instance.ResetGameState();
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(mainMenuSceneName);
     }
 
     // 🔥 DIPANGGIL DARI GAME OVER

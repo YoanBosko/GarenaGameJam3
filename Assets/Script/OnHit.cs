@@ -24,20 +24,36 @@ public class OnHit : MonoBehaviour
         if (!AttackState.isAttacking) return;
 
         // Ambil EnemyHealth dari parent (kalau ada)
-        EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
+        // EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
+        EnemyHealth enemy = null;
 
         // =========================
-        // HIT ENEMY / ENEMY HEALTHBAR
+        // 1️⃣ COBA LANGSUNG (BODY ENEMY)
         // =========================
-        if ((other.CompareTag("Boss") || other.CompareTag("Enemy-HealthBar")) && enemy != null)
+        enemy = other.GetComponent<EnemyHealth>();
+
+        // =========================
+        // 2️⃣ COBA VIA HEALTH BAR LINK
+        // =========================
+        if (enemy == null)
         {
-            // Cegah double hit (body + healthbar)
+            EnemyHealthBarLink link = other.GetComponent<EnemyHealthBarLink>();
+            if (link != null)
+                enemy = link.enemyHealth;
+        }
+
+        // =========================
+        // HIT ENEMY / HEALTH BAR
+        // =========================
+        if (enemy != null)
+        {
+            // cegah double hit (body + healthbar)
             if (alreadyHit.Contains(enemy.gameObject)) return;
 
             alreadyHit.Add(enemy.gameObject);
             enemy.TakeDamage(damageValue);
 
-            Debug.Log($"Enemy hit: {enemy.name}, damage: {damageValue}");
+            Debug.Log($"Enemy hit via {other.name}, damage: {damageValue}");
             return;
         }
 
@@ -54,7 +70,7 @@ public class OnHit : MonoBehaviour
         }
 
         // =========================
-        // HIT UI HEALTH BAR (manual)
+        // HIT UI HEALTH BAR (UI SAJA, BUKAN ENEMY)
         // =========================
         if (other.CompareTag("UI-HealthBar"))
         {
@@ -93,7 +109,7 @@ public class OnHit : MonoBehaviour
     }
 
     // =========================
-    // UI HEALTH BAR (fallback)
+    // UI HEALTH BAR (UI ONLY)
     // =========================
     private void HandleHealthBar(GameObject obj)
     {
@@ -101,7 +117,7 @@ public class OnHit : MonoBehaviour
         if (slider != null)
         {
             slider.value -= damageValue;
-            Debug.Log("Health Bar Hit: Value reduced!");
+            Debug.Log("UI Health Bar Hit: Value reduced!");
         }
     }
 }
