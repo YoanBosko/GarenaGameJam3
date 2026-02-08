@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
 
     [Header("UI")]
     public Slider healthSlider;
+    public ShieldHealthBar shieldHealthBar;
 
     private bool isDead = false;
 
@@ -29,6 +30,8 @@ public class Health : MonoBehaviour
         {
             AudioManager.Instance.PlaySFX("PlayerGetHit");
         }
+
+        shieldHealthBar.TakeDamage(damage);
 
         if (currentHealth <= 0)
             Die();

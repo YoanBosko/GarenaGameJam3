@@ -19064,6 +19064,10 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   slider: {fileID: 321176133}
+  backgroundImage: {fileID: 2134528246}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  feedbackDuration: 0.2
+  shakeIntensity: 10
 --- !u!1 &321515999
 GameObject:
   m_ObjectHideFlags: 0
@@ -45704,6 +45708,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthSlider: {fileID: 321176133}
+  shieldHealthBar: {fileID: 321176134}
 --- !u!114 &745090443
 MonoBehaviour:
   m_ObjectHideFlags: 0
