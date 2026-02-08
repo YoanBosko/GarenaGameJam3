@@ -26,8 +26,6 @@ public class OnHit : MonoBehaviour
         // Ambil EnemyHealth dari parent (kalau ada)
         EnemyHealth enemy = other.GetComponentInParent<EnemyHealth>();
 
-        Debug.Log("ini amon");
-
         // =========================
         // HIT ENEMY / ENEMY HEALTHBAR
         // =========================
