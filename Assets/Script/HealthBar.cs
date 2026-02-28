@@ -69,7 +69,7 @@ public class ShieldHealthBar : MonoBehaviour
         }
 
         // Kembalikan ke posisi dan warna semula
-        transform.localPosition = originalPosition;
+        // transform.localPosition = originalPosition;
         if (backgroundImage != null)
             backgroundImage.color = originalColor;
 

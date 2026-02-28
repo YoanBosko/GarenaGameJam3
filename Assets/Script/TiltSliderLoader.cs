@@ -5,179 +5,96 @@ using System.Collections;
 
 public class TiltSliderLoader : MonoBehaviour
 {
-    // =========================
-    // MODE
-    // =========================
-    public enum SliderMode
-    {
-        Volume,
-        Loading
-    }
+    public enum SliderMode { Volume, Loading }
 
     [Header("Mode")]
     public SliderMode sliderMode = SliderMode.Loading;
 
-    // =========================
-    // UI
-    // =========================
     [Header("UI")]
     public Slider slider;
 
-    // =========================
-    // TILT SETTINGS
-    // =========================
-    [Header("Tilt Settings")]
-    [Tooltip("Sudut maksimum dari pose awal")]
-    public float maxTilt = 60f;
+    [Header("Tilt Logic (New)")]
+    [Tooltip("Faktor kecepatan: Semakin besar, semakin cepat slider bertambah pada sudut yang sama.")]
+    public float fillSpeedMultiplier = 0.33f; 
+    
+    [Tooltip("Batas sudut maksimal untuk perhitungan kecepatan.")]
+    public float maxTiltAngle = 60f;
 
-    [Tooltip("Jika sisi kiri naik >= ini dari pose awal, langsung full")]
-    public float instantFillAngle = 30f;
-
-    // =========================
-    // SLIDER ANIMATION
-    // =========================
     [Header("Slider Animation")]
-    public float sliderSmoothTime = 0.25f;
+    public float sliderSmoothTime = 0.1f;
 
-    // =========================
-    // VOLUME
-    // =========================
     [Header("Volume Settings")]
     [Range(0f, 1f)]
     public float maxVolume = 1f;
 
-    // =========================
-    // SCENE
-    // =========================
     [Header("Scene Transition")]
     public bool loadNextSceneOnComplete = false;
     public float fallDelay = 3f;
 
-    // =========================
-    // DEBUG
-    // =========================
-    [Header("DEBUG (Inspector Only)")]
-    [SerializeField] float signedAngleFromDefault;
-    [SerializeField] float targetValue;
-
-    // =========================
-    // INTERNAL
-    // =========================
+    // Internal logic
     bool completed;
-    Rigidbody rb;
     float sliderVelocity;
-
-    // arah kiri saat START (patokan nol derajat)
     Vector3 defaultLeftDir;
+    float currentInternalValue = 0f; // Penampung nilai progres
 
-    // =========================
-    // UNITY
-    // =========================
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-
-        if (slider == null)
-            slider = GetComponent<Slider>();
-
-        // =========================
-        // SIMPAN POSE AWAL (0°)
-        // =========================
+        if (slider == null) slider = GetComponent<Slider>();
+        
         defaultLeftDir = -transform.right;
 
-        // lurus = tengah
-        slider.value = 0.5f;
+        // Start dari 0 sesuai permintaan Anda
+        currentInternalValue = 0f;
+        slider.value = 0f;
 
         if (sliderMode == SliderMode.Volume)
-            AudioListener.volume = slider.value * maxVolume;
+            AudioListener.volume = 0f;
     }
 
     void Update()
     {
         if (completed) return;
 
-        // ==================================================
-        // ARAH KIRI SAAT INI
-        // ==================================================
+        // 1. Hitung Sudut Kemiringan
         Vector3 currentLeftDir = -transform.right;
+        float signedAngle = Vector3.SignedAngle(currentLeftDir, defaultLeftDir, Vector3.forward);
 
-        // ==================================================
-        // SUDUT RELATIF DARI POSE AWAL
-        // (+) kiri naik dari default
-        // (-) kiri turun dari default
-        // ==================================================
-        signedAngleFromDefault = Vector3.SignedAngle(
-        currentLeftDir,
-        defaultLeftDir,
-        Vector3.forward
-    );
+        // 2. Logika Baru: Tambahkan nilai berdasarkan derajat kemiringan
+        // Jika signedAngle +15, maka bertambah. Jika -15, maka berkurang.
+        // Kita bagi dengan suatu angka (misal 3) agar 15 derajat = +5 unit/detik
+        float speed = signedAngle * fillSpeedMultiplier;
 
+        // Update nilai progres berdasarkan waktu (Time.deltaTime)
+        // Nilai slider Unity biasanya 0-1, jika slider Anda 0-100, sesuaikan limitnya
+        currentInternalValue += speed * Time.deltaTime;
+        currentInternalValue = Mathf.Clamp(currentInternalValue, 0f, 100f); // Contoh rentang 0-100
 
-        // ==================================================
-        // HITUNG TARGET SLIDER
-        // ==================================================
-        if (sliderMode == SliderMode.Loading &&
-            signedAngleFromDefault >= instantFillAngle)
-        {
-            // 💧 air tumpah langsung penuh
-            targetValue = 1f;
-        }
-        else
-        {
-            // mapping:
-            // -maxTilt → 0
-            // 0 → 0.5
-            // +maxTilt → 1
-            targetValue = Mathf.Clamp01(
-                (signedAngleFromDefault / maxTilt + 1f) * 0.5f
-            );
-        }
-
-        // ==================================================
-        // APPLY SLIDER
-        // ==================================================
+        // 3. Terapkan ke Slider dengan smoothing
         slider.value = Mathf.SmoothDamp(
-            slider.value,
-            targetValue,
-            ref sliderVelocity,
+            slider.value, 
+            currentInternalValue, 
+            ref sliderVelocity, 
             sliderSmoothTime
         );
 
-        // ==================================================
-        // APPLY VOLUME
-        // ==================================================
+        // 4. Update Volume
         if (sliderMode == SliderMode.Volume)
-            AudioListener.volume = slider.value * maxVolume;
+            AudioListener.volume = (slider.value / slider.maxValue) * maxVolume;
 
-        // ==================================================
-        // COMPLETE (LOADING)
-        // ==================================================
-        if (sliderMode == SliderMode.Loading && slider.value >= 0.99f)
+        // 5. Cek Selesai
+        if (sliderMode == SliderMode.Loading && slider.value >= (slider.maxValue * 0.99f))
             StartCoroutine(CompleteSequence());
     }
 
-    // =========================
-    // COMPLETE SEQUENCE
-    // =========================
     IEnumerator CompleteSequence()
     {
         completed = true;
-        slider.value = 1f;
-
-        // if (rb != null)
-        // {
-        //     rb.useGravity = true;
-        //     rb.drag = 0f;
-        //     rb.angularDrag = 0f;
-        // }
-
+        slider.value = slider.maxValue;
         yield return new WaitForSeconds(fallDelay);
 
         if (loadNextSceneOnComplete)
         {
-            SceneManager.LoadScene(
-                SceneManager.GetActiveScene().buildIndex + 1
-            );
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }

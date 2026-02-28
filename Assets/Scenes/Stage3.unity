@@ -39849,14 +39849,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliderMode: 1
   slider: {fileID: 607370044}
-  maxTilt: 45
-  instantFillAngle: 30
+  fillSpeedMultiplier: 0.33
+  maxTiltAngle: 60
   sliderSmoothTime: 0.4
   maxVolume: 1
   loadNextSceneOnComplete: 0
   fallDelay: 3
-  signedAngleFromDefault: 0
-  targetValue: 0
 --- !u!65 &607370042
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -49848,7 +49846,7 @@ MonoBehaviour:
   backgroundImage: {fileID: 0}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   feedbackDuration: 0.2
-  shakeIntensity: 10
+  shakeIntensity: 0
 --- !u!114 &771291206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49863,14 +49861,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliderMode: 1
   slider: {fileID: 771291203}
-  maxTilt: 60
-  instantFillAngle: 30
+  fillSpeedMultiplier: 0.33
+  maxTiltAngle: 60
   sliderSmoothTime: 0.4
   maxVolume: 1
   loadNextSceneOnComplete: 0
   fallDelay: 3
-  signedAngleFromDefault: 0
-  targetValue: 0
 --- !u!65 &771291207
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -81623,7 +81619,7 @@ Transform:
   m_GameObject: {fileID: 1259505325}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.846, y: 0.304, z: 0.525}
+  m_LocalPosition: {x: -7.76, y: 0.304, z: 0.525}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -105581,14 +105577,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliderMode: 1
   slider: {fileID: 1625067688}
-  maxTilt: 60
-  instantFillAngle: 30
+  fillSpeedMultiplier: 0.33
+  maxTiltAngle: 60
   sliderSmoothTime: 0.4
   maxVolume: 1
   loadNextSceneOnComplete: 0
   fallDelay: 3
-  signedAngleFromDefault: 0
-  targetValue: 0
 --- !u!65 &1625067686
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -125250,14 +125244,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliderMode: 1
   slider: {fileID: 1954003966}
-  maxTilt: 60
-  instantFillAngle: 30
+  fillSpeedMultiplier: 0.33
+  maxTiltAngle: 60
   sliderSmoothTime: 0.4
   maxVolume: 1
   loadNextSceneOnComplete: 0
   fallDelay: 3
-  signedAngleFromDefault: 0
-  targetValue: 0
 --- !u!65 &1954003964
 BoxCollider:
   m_ObjectHideFlags: 0

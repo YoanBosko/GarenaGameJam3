@@ -8953,14 +8953,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliderMode: 1
   slider: {fileID: 161734681}
-  maxTilt: 45
-  instantFillAngle: 30
+  fillSpeedMultiplier: 0.33
+  maxTiltAngle: 60
   sliderSmoothTime: 0.4
   maxVolume: 1
   loadNextSceneOnComplete: 0
   fallDelay: 3
-  signedAngleFromDefault: 0
-  targetValue: 0
 --- !u!65 &161734679
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18942,14 +18940,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliderMode: 1
   slider: {fileID: 321176133}
-  maxTilt: 60
-  instantFillAngle: 30
+  fillSpeedMultiplier: 0.33
+  maxTiltAngle: 60
   sliderSmoothTime: 0.4
   maxVolume: 1
   loadNextSceneOnComplete: 0
   fallDelay: 3
-  signedAngleFromDefault: 0
-  targetValue: 0
 --- !u!65 &321176131
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19067,7 +19063,7 @@ MonoBehaviour:
   backgroundImage: {fileID: 2134528246}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   feedbackDuration: 0.2
-  shakeIntensity: 10
+  shakeIntensity: 0
 --- !u!1 &321515999
 GameObject:
   m_ObjectHideFlags: 0
@@ -23358,14 +23354,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliderMode: 1
   slider: {fileID: 377736429}
-  maxTilt: 60
-  instantFillAngle: 30
+  fillSpeedMultiplier: 0.33
+  maxTiltAngle: 60
   sliderSmoothTime: 0.4
   maxVolume: 1
   loadNextSceneOnComplete: 0
   fallDelay: 3
-  signedAngleFromDefault: 0
-  targetValue: 0
 --- !u!65 &377736427
 BoxCollider:
   m_ObjectHideFlags: 0
