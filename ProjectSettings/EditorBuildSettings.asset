@@ -18,14 +18,14 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScreen1.unity
     guid: 4a57c69815bea1b4d82710c53939b020
   - enabled: 1
-    path: Assets/Scenes/Stage2.unity
-    guid: bf1b4ac7c87e7984eb4511e640933ee3
+    path: Assets/Scenes/Stage3.unity
+    guid: fbef0aa6b1c1bf949be7132c9ffd8b1d
   - enabled: 1
     path: Assets/Scenes/LoadingScreen2.unity
     guid: 29276803b6fcddb4eab8177603447114
   - enabled: 1
-    path: Assets/Scenes/Stage3.unity
-    guid: fbef0aa6b1c1bf949be7132c9ffd8b1d
+    path: Assets/Scenes/Stage2.unity
+    guid: bf1b4ac7c87e7984eb4511e640933ee3
   - enabled: 1
     path: Assets/Scenes/Creditscene.unity
     guid: 777d8f9e9bc9193449a5c9e8afe9ae41

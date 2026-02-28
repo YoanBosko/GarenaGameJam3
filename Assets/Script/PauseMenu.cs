@@ -48,7 +48,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    private void TogglePauseMenu()
+    public void TogglePauseMenu()
     {
         GameManager.Instance.TogglePause();
 
